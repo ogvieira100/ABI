@@ -1,0 +1,6 @@
+@DeveloperEvaluation.Bff.Users_HostAddress = http://localhost:5039
+
+GET {{DeveloperEvaluation.Bff.Users_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
