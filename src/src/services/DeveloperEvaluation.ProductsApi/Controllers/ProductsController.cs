@@ -3,6 +3,7 @@ using DeveloperEvaluation.Core.Data;
 using DeveloperEvaluation.Core.Utils;
 using DeveloperEvaluation.Core.Web;
 using DeveloperEvaluation.ProductsApi.Application.CreateProducts;
+using DeveloperEvaluation.ProductsApi.Application.DeleteProducts;
 using DeveloperEvaluation.ProductsApi.Application.Queries;
 using DeveloperEvaluation.ProductsApi.Models;
 using DeveloperEvaluation.ProductsApi.Models.Request;
@@ -37,39 +38,25 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteProduct([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteProduct([FromRoute] Guid id, CancellationToken cancellationToken = default)
         {
+            var request = new DeleteProductRequest { Id = id };
+            var validator = new DeleteProductRequestValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var command = _mapper.Map<DeleteProductsCommand>(request);
+            var resp =  await _mediator.Send(command, cancellationToken);
             return Ok(new ApiResponse
             {
-                Success = true
-
-            });
-        }
-
-        /// <summary>
-        /// UpdateProducts
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        [HttpPut()]
-        [ProducesResponseType(typeof(ApiResponseWithData<CreateProductResponse>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateProducts([FromRoute] Guid id, CancellationToken cancellationToken)
-        {
-
-            var response = new { };
-            return Created(string.Empty, new ApiResponseWithData<CreateProductResponse>
-            {
                 Success = true,
-                Message = "User created successfully",
-                Data = _mapper.Map<CreateProductResponse>(response)
+                Message = "Produto deletado com sucesso"
             });
-
-
         }
 
+   
 
         /// <summary>
         /// GetProducts
@@ -81,10 +68,10 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
         [ProducesResponseType(typeof(PaginatedResponse<Products>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAllProducts([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllProducts(CancellationToken cancellationToken = default)
         {
             var response = new List<Products>();
-            return OkPaginated(await PaginatedList<Products>.CreateAsync(response.AsQueryable(), response.Count, 30));
+            return Ok(await _productsQueries.GetAllProductsAsync(cancellationToken));
         }
 
         /// <summary>
@@ -97,9 +84,9 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
         [ProducesResponseType(typeof(PaginatedResponse<Products>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProducts([FromQuery] GetPaginatedProductsRequest  getPaginatedProductsRequest, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetProducts([FromQuery] GetPaginatedProductsRequest  getPaginatedProductsRequest, CancellationToken cancellationToken = default)
         {
-            return OkPaginated(await _productsQueries.GetPaginatedProductsRequestAsync(getPaginatedProductsRequest));
+            return OkPaginated(await _productsQueries.GetPaginatedProductsRequestAsync(getPaginatedProductsRequest, cancellationToken));
         }
 
         /// <summary>
@@ -112,10 +99,10 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
         [ProducesResponseType(typeof(ApiResponseWithData<GetProductResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProduct([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetProduct([FromRoute] Guid id, CancellationToken cancellationToken = default  )
         {
 
-            var response = await _productsQueries.GetByIdAsync(id);
+            var response = await _productsQueries.GetByIdAsync(id, cancellationToken);
             if (response == null)
                 throw new KeyNotFoundException($"Produto com  ID {id} não encontrado");
 
@@ -131,7 +118,7 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponseWithData<CreateProductResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateProducts([FromBody] CreateProductRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateProducts([FromBody] CreateProductRequest request, CancellationToken cancellationToken = default)
         {
             var validator = new CreateProductRequestValidator();
 

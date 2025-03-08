@@ -29,5 +29,8 @@ namespace DeveloperEvaluation.Core.Data
         => await _context.Connection.QueryAsync<TEntity>(new CommandDefinition(query, cancellationToken: cancellationToken));
         public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         => await DbSet.FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<IEnumerable<TEntity2>> SearchAsync<TEntity2>(string query, CancellationToken cancellationToken = default) where TEntity2 : class
+        => await _context.Connection.QueryAsync<TEntity2>(new CommandDefinition(query, cancellationToken: cancellationToken));
     }
 }

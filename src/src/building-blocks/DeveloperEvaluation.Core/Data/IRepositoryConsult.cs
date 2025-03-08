@@ -16,6 +16,7 @@ namespace DeveloperEvaluation.Core.Data
     {
         Task<IEnumerable<TEntity>> SearchAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         Task<IEnumerable<TEntity>> SearchAsync(string query, CancellationToken cancellationToken = default);
+        Task<IEnumerable<TEntity2>> SearchAsync<TEntity2>(string query, CancellationToken cancellationToken = default) where TEntity2: class;
         IQueryable<TEntity> GetQueryable();
         Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);

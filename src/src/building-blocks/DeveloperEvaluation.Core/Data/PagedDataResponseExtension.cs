@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DeveloperEvaluation.Core.Data
@@ -12,7 +13,8 @@ namespace DeveloperEvaluation.Core.Data
     {
         public static async Task<PagedDataResponse<TModel>> PaginateAsync<TModel>(
         this IQueryable<TModel> query,
-        PagedDataRequest pagedDataRequest
+        PagedDataRequest pagedDataRequest,
+        CancellationToken cancellationToken = default   
         )
         where TModel : BaseEntity
 
@@ -25,7 +27,7 @@ namespace DeveloperEvaluation.Core.Data
             paged.Page = pagedDataRequest.Page;
             paged.PageSize = pagedDataRequest.Limit;
 
-            var totalItemsCountTask = await query.CountAsync();
+            var totalItemsCountTask = await query.CountAsync(cancellationToken);
 
             var startRow = (pagedDataRequest.Page - 1) * pagedDataRequest.Limit;
 
@@ -34,7 +36,7 @@ namespace DeveloperEvaluation.Core.Data
 
             paged.Items = await query
                        .Take(pagedDataRequest.Limit)
-                       .ToListAsync();
+                       .ToListAsync(cancellationToken);
 
             paged.TotalItens = totalItemsCountTask;
             paged.TotalPages = (int)Math.Ceiling(paged.TotalItens / (double)pagedDataRequest.Limit);
