@@ -1,14 +1,15 @@
 ﻿
 
 using DeveloperEvaluation.ProductsApi.ValueObjects;
+using MediatR;
 
 namespace DeveloperEvaluation.ProductsApi.Application.CreateProducts
 {
-    public class CreateProductsCommand
+    public class CreateProductsCommand : IRequest<CreateProductsResult>
     {
         public string Title { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         public string Description { get; set; }
 
@@ -17,5 +18,7 @@ namespace DeveloperEvaluation.ProductsApi.Application.CreateProducts
         public string Image { get; set; }
 
         public RattingValueObjects Ratting { get; set; }
+
+    
     }
 }

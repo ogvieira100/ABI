@@ -11,7 +11,7 @@ namespace DeveloperEvaluation.Core.Data
 {
     public interface IDbContext
     {
-        DbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity;
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         int SaveChanges();
         IDbConnection Connection { get; }

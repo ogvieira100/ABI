@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using DeveloperEvaluation.Core.Validation;
+using FluentValidation;
 using FluentValidation.Validators;
 using Microsoft.AspNetCore.Identity;
 
@@ -6,16 +7,24 @@ namespace DeveloperEvaluation.ProductsApi.Application.CreateProducts
 {
     public class CreateProductsValidator: AbstractValidator<CreateProductsCommand>
     {
-
-
         public CreateProductsValidator()
         {
-            //RuleFor(user => user.Email).SetValidator(new EmailValidator());
-            //RuleFor(user => user.Username).NotEmpty().Length(3, 50);
-            //RuleFor(user => user.Password).SetValidator(new PasswordValidator());
-            //RuleFor(user => user.Phone).Matches(@"^\+?[1-9]\d{1,14}$");
-            //RuleFor(user => user.Status).NotEqual(UserStatus.Unknown);
-            //RuleFor(user => user.Role).NotEqual(UserRole.None);
+
+            RuleFor(pr => pr.Price).SetValidator(new PriceValidation(1,null));
+            RuleFor(pr => pr.Description)
+                .NotEmpty()
+                .Length(15, 100)
+                .WithMessage("Atenção a descrição deve ter entre 15 e 100 caracteres");
+
+           RuleFor(pr => pr.Title)
+                .NotEmpty()
+                .Length(15, 50)
+                .WithMessage("Atenção o titulo deve conter entre 15 e 50 caracteres");
+
+           RuleFor(pr => pr.Category)
+              .NotEmpty()
+              .Length(3, 50)
+              .WithMessage("Atenção a categoria deve ter entre 3 e 50 caracteres");
         }
 
     }

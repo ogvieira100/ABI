@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DeveloperEvaluation.Core.Utils;
 using DeveloperEvaluation.Core.Web;
+using DeveloperEvaluation.ProductsApi.Application.CreateProducts;
 using DeveloperEvaluation.ProductsApi.Models;
 using DeveloperEvaluation.ProductsApi.Models.Request;
 using DeveloperEvaluation.ProductsApi.Models.Response;
@@ -115,12 +116,20 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateProducts([FromBody] CreateProductRequest request, CancellationToken cancellationToken)
         {
+            var validator = new CreateProductRequestValidator();
 
-            var response = new { };
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var command = _mapper.Map<CreateProductsCommand>(request);
+            var response = await _mediator.Send(command, cancellationToken);
+            
             return Created(string.Empty, new ApiResponseWithData<CreateProductResponse>
             {
                 Success = true,
-                Message = "User created successfully",
+                Message = "Product created successfully",
                 Data = _mapper.Map<CreateProductResponse>(response)
             });
         }

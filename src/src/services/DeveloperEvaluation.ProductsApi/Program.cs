@@ -1,4 +1,9 @@
+using DeveloperEvaluation.Core.Data;
+using DeveloperEvaluation.Core.Utils;
+using DeveloperEvaluation.Core.Validation;
+using DeveloperEvaluation.Core.Web;
 using DeveloperEvaluation.ProductsApi.Data;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +28,21 @@ builder.Services.AddDbContext<ProductDBContext>(options =>
                )
            );
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblies(
+        typeof(Program).Assembly
+    );
+});
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+builder.Services.AddScoped<IDbContext, ProductDBContext>();
+DependencyResolver.RegisterDependencies(builder);
+
 var app = builder.Build();
+app.UseMiddleware<ValidationExceptionMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -37,9 +56,11 @@ app.UseSwaggerUI(opt => {
     opt.SwaggerEndpoint("/openapi/v1.json", "Products api");
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

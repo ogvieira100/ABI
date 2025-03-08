@@ -7,7 +7,7 @@ namespace DeveloperEvaluation.ProductsApi.ValueObjects
         public decimal? Rate { get; set; }
         public int? Count { get; set; }
 
-        protected RattingValueObjects()
+        public RattingValueObjects()
         {
             
         }
