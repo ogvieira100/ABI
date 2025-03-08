@@ -1,0 +1,67 @@
+version: '3.8'
+
+networks:
+  developerEvaluation-network:
+    driver: bridge
+
+volumes:
+  postgres-developerEvaluation-volume:
+  rabbitmq-developerEvaluation-volume:
+  rabbitmq-developerEvaluation-volume-logs:
+  mongo-developerEvaluation-volume:
+
+services:
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-developerEvaluation
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - developerEvaluation-network
+  postgres:
+    image: postgres:latest
+    container_name: postgres-developerEvaluation-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Sistema@2024
+      POSTGRES_DB: db_local
+    ports:
+      - "5432:5432"
+    networks:
+      - developerEvaluation-network
+    volumes:
+      - postgres-developerEvaluation-volume:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq-developerEvaluation-container
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - developerEvaluation-network
+    volumes:
+      - rabbitmq-developerEvaluation-volume:/var/lib/rabbitmq
+      - rabbitmq-developerEvaluation-volume-logs:/var/log/rabbitmq    
+  mongo:
+    image: mongo:latest
+    container_name: mongo-developerEvaluation-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: Sistema@2024
+    ports:
+      - "27017:27017"
+    networks:
+      - developerEvaluation-network
+    volumes:
+      - mongo-developerEvaluation-volume:/data/db    
