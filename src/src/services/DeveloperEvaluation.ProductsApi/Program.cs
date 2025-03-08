@@ -2,9 +2,11 @@ using DeveloperEvaluation.Core.Data;
 using DeveloperEvaluation.Core.Utils;
 using DeveloperEvaluation.Core.Validation;
 using DeveloperEvaluation.Core.Web;
+using DeveloperEvaluation.ProductsApi.Application.Queries;
 using DeveloperEvaluation.ProductsApi.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,9 +37,11 @@ builder.Services.AddMediatR(cfg =>
     );
 });
 
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(PagedMappingProfile).Assembly);
 
 builder.Services.AddScoped<IDbContext, ProductDBContext>();
+builder.Services.AddScoped<IProductsQueries, ProductsQueries>();
+
 DependencyResolver.RegisterDependencies(builder);
 
 var app = builder.Build();

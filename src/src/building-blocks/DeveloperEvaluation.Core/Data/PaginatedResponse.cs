@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DeveloperEvaluation.Core.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeveloperEvaluation.Core.Utils
+namespace DeveloperEvaluation.Core.Data
 {
     public class PaginatedResponse<T> : ApiResponseWithData<IEnumerable<T>>
     {

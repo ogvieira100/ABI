@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeveloperEvaluation.Core.Utils
+namespace DeveloperEvaluation.Core.Data
 {
-    public class PaginatedList<T> : List<T>
+    public class PaginatedList<T> : List<T> 
     {
         public int CurrentPage { get; private set; }
         public int TotalPages { get; private set; }

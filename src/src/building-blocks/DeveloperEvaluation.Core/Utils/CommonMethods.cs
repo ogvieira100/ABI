@@ -9,6 +9,11 @@ namespace DeveloperEvaluation.Core.Utils
 {
     public class CommonMethods
     {
+
+        public static bool  IsGuid(object value)
+        => Guid.TryParse(value.ToString(), out _);
+
+ 
         #region   " Strings "
         /// <summary>
         /// 

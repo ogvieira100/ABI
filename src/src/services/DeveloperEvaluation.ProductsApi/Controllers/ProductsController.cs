@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using DeveloperEvaluation.Core.Data;
 using DeveloperEvaluation.Core.Utils;
 using DeveloperEvaluation.Core.Web;
 using DeveloperEvaluation.ProductsApi.Application.CreateProducts;
+using DeveloperEvaluation.ProductsApi.Application.Queries;
 using DeveloperEvaluation.ProductsApi.Models;
 using DeveloperEvaluation.ProductsApi.Models.Request;
 using DeveloperEvaluation.ProductsApi.Models.Response;
@@ -16,10 +18,13 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public ProductsController(IMediator mediator, IMapper mapper)
+        readonly IProductsQueries _productsQueries;
+
+        public ProductsController(IProductsQueries productsQueries, IMediator mediator, IMapper mapper)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _productsQueries = productsQueries;
         }
 
         /// <summary>
@@ -65,20 +70,36 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
 
         }
 
+
         /// <summary>
         /// GetProducts
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        [HttpGet("All")]
+        [ProducesResponseType(typeof(PaginatedResponse<Products>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllProducts([FromRoute] Guid id, CancellationToken cancellationToken)
+        {
+            var response = new List<Products>();
+            return OkPaginated(await PaginatedList<Products>.CreateAsync(response.AsQueryable(), response.Count, 30));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="getPaginatedProductsRequest"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet()]
         [ProducesResponseType(typeof(PaginatedResponse<Products>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetProducts([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetProducts([FromQuery] GetPaginatedProductsRequest  getPaginatedProductsRequest, CancellationToken cancellationToken)
         {
-            var response = new List<Products>();
-            return OkPaginated(await PaginatedList<Products>.CreateAsync(response.AsQueryable(), response.Count,30));
+            return OkPaginated(await _productsQueries.GetPaginatedProductsRequestAsync(getPaginatedProductsRequest));
         }
 
         /// <summary>
@@ -93,16 +114,12 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProduct([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var response = new { };
 
-            return Ok(new ApiResponseWithData<GetProductResponse> {
+            var response = await _productsQueries.GetByIdAsync(id);
+            if (response == null)
+                throw new KeyNotFoundException($"Produto com  ID {id} não encontrado");
 
-                Success = true,
-                Message = "User retrieved successfully",
-                Data = _mapper.Map<GetProductResponse>(response)
-
-            });
-
+            return base.Ok(_mapper.Map<GetProductResponse>(response));
         }
 
         /// <summary>

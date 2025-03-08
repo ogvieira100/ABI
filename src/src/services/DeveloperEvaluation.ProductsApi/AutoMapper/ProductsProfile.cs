@@ -13,7 +13,7 @@ namespace DeveloperEvaluation.ProductsApi.AutoMapper
 
         public ProductsProfile()
         {
-            //
+            CreateMap<Products, GetProductResponse>();
             CreateMap<CreateProductsResult, CreateProductResponse>();
             CreateMap<CreateProductsCommand, Products>();
             CreateMap<Products, CreateProductsResult>();

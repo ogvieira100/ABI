@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeveloperEvaluation.Core.Domain
 {
-    public class PagedDataResponse<T> where T : BaseEntity
+    public class PagedDataResponse<T> 
     {
         public List<T> Items { get; set; }
 
@@ -14,7 +14,7 @@ namespace DeveloperEvaluation.Core.Domain
 
         public int PageSize { get; set; }
 
-        public long TotalItens { get; set; }
+        public int TotalItens { get; set; }
 
         public int TotalPages { get; set; }
 

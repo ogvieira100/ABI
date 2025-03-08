@@ -1,4 +1,5 @@
-﻿using DeveloperEvaluation.Core.Utils;
+﻿using DeveloperEvaluation.Core.Data;
+using DeveloperEvaluation.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace DeveloperEvaluation.Core.Web
 
         protected IActionResult Ok<T>(T data) =>
                  base.Ok(new ApiResponseWithData<T> { Data = data, Success = true });
+
+        protected IActionResult Ok<T>(T data,string Message) =>
+         base.Ok(new ApiResponseWithData<T> { Data = data, Success = true, Message = Message });
 
         protected IActionResult Created<T>(string routeName, object routeValues, T data) =>
            base.CreatedAtRoute(routeName, routeValues, new ApiResponseWithData<T> { Data = data, Success = true });
