@@ -50,7 +50,6 @@ namespace DeveloperEvaluation.CartsApi.Mapping
                 .HasPrecision(20, 5)
                 .IsRequired();
 
-
             builder.ToTable("ProdutosCarrinho");
 
         }

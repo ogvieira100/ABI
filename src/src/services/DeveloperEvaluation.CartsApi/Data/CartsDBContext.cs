@@ -1,4 +1,5 @@
-﻿using DeveloperEvaluation.Core.Data;
+﻿using DeveloperEvaluation.CartsApi.Mapping;
+using DeveloperEvaluation.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -16,6 +17,8 @@ namespace DeveloperEvaluation.CartsApi.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new ProductMapping());
+            modelBuilder.ApplyConfiguration(new CartsItensMapping());
+            modelBuilder.ApplyConfiguration(new CartsMapping());
         }
     }
 }

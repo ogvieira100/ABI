@@ -1,5 +1,6 @@
 ﻿using DeveloperEvaluation.CartsApi.ValueObjects;
 using DeveloperEvaluation.Core.Domain;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DeveloperEvaluation.CartsApi.Models
 {
@@ -17,5 +18,11 @@ namespace DeveloperEvaluation.CartsApi.Models
 
         public RattingValueObjects Ratting { get; set; }
 
+        public IEnumerable<CartsItens> CartsItens { get; set; }
+
+        public Products()
+        {
+            CartsItens = new List<CartsItens>();
+        }
     }
 }
