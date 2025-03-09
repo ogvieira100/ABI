@@ -1,3 +1,4 @@
+
 using DeveloperEvaluation.Core.Data;
 using DeveloperEvaluation.Core.Utils;
 using DeveloperEvaluation.Core.Validation;
@@ -28,6 +29,8 @@ builder.Services.AddDbContext<ProductDBContext>(options =>
                options.UseNpgsql(
                    builder.Configuration.GetConnectionString("DefaultConnection")
                )
+                 .EnableSensitiveDataLogging()
+                 .UseLazyLoadingProxies()
            );
 
 builder.Services.AddMediatR(cfg =>
@@ -51,11 +54,12 @@ app.UseMiddleware<ValidationExceptionMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-   
+
 }
 
 app.MapOpenApi();
-app.UseSwaggerUI(opt => {
+app.UseSwaggerUI(opt =>
+{
 
     opt.SwaggerEndpoint("/openapi/v1.json", "Products api");
 });
@@ -67,5 +71,23 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+
+
+/*update database*/
+using (var scope = app.Services.CreateScope())
+{
+    using (var appContext = scope.ServiceProvider.GetRequiredService<ProductDBContext>())
+    {
+        try
+        {
+            appContext.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+
+    }
+}
 
 app.Run();

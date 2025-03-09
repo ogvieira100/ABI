@@ -12,7 +12,9 @@ namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
                     .WithMessage("Informe o Usuario");
 
             RuleForEach(x => x.CreateCardItens)
-                .SetValidator(new CreateCartsItensValidator());
+                .SetValidator(new CreateCartsItensValidator())
+                .NotEmpty().WithMessage("Atenção deve haver ao menos um item")
+                ;
         }
     }
 }

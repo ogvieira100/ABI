@@ -29,7 +29,8 @@ namespace DeveloperEvaluation.CartsApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponseWithData<CreateCartsResponse>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateCarts([FromBody] CreateCartsRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> CreateCarts([FromBody] CreateCartsRequest request,
+            CancellationToken cancellationToken = default)
         {
             var validator = new CreateCartsRequestValidator();
 
@@ -48,7 +49,5 @@ namespace DeveloperEvaluation.CartsApi.Controllers
                 Data = _mapper.Map<CreateCartsResponse>(response)
             });
         }
-
-
     }
 }

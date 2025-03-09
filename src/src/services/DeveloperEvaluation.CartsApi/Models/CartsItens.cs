@@ -16,7 +16,7 @@ namespace DeveloperEvaluation.CartsApi.Models
 
         public CartsItens()
         {
-            DateAdd = new DateTime();
+            DateAdd =  DateTime.Now;
         }
     }
 }

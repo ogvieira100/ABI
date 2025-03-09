@@ -15,7 +15,7 @@ namespace DeveloperEvaluation.CartsApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CartsItensMapping());
             modelBuilder.ApplyConfiguration(new CartsMapping());

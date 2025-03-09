@@ -6,14 +6,16 @@ namespace DeveloperEvaluation.CartsApi.Models.Request
 {
     public class CreateCartsRequestValidator : AbstractValidator<CreateCartsRequest>
     {
-        public CreateCartsValidator()
+        public CreateCartsRequestValidator()
         {
             RuleFor(x => x.UserIdInsert)
                     .NotEmpty()
                     .WithMessage("Informe o Usuario");
 
             RuleForEach(x => x.CreateCardItens)
-                .SetValidator(new CreateCartsItensValidator());
+                .SetValidator(new CreateCartsItensValidatorDto())
+                 .NotEmpty().WithMessage("Atenção deve haver ao menos um item")
+                ;
         }
     }
 }

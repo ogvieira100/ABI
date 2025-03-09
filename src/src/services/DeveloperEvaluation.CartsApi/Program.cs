@@ -24,7 +24,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<CartsDBContext>(options =>
                options.UseNpgsql(
                    builder.Configuration.GetConnectionString("DefaultConnection")
-               )
+               ).EnableSensitiveDataLogging()
+                .UseLazyLoadingProxies()
            );
 
 builder.Services.AddMediatR(cfg =>
@@ -62,5 +63,22 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+/*update database*/
+using (var scope = app.Services.CreateScope())
+{
+    using (var appContext = scope.ServiceProvider.GetRequiredService<CartsDBContext>())
+    {
+        try
+        {
+            appContext.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+
+    }
+}
 
 app.Run();

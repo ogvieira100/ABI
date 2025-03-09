@@ -7,11 +7,11 @@ namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
 
         public Guid Id { get; set; }
 
-        public List<CreateCartsItensResult> CartsItens { get; set; }
+        public List<CreateCartsItensResult> CreateCardItens { get; set; }
 
         public CreateCartsResult()
         {
-            CartsItens = new List<CreateCartsItensResult>();
+            CreateCardItens = new List<CreateCartsItensResult>();
         }
 
     }

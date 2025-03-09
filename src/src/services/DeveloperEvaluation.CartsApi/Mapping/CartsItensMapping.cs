@@ -37,7 +37,7 @@ namespace DeveloperEvaluation.CartsApi.Mapping
             /*relations One two many*/
 
             builder.HasOne(x => x.Carts)
-                .WithMany(x => x.CartsItens)
+                .WithMany(x => x.CreateCardItens)
                 .HasForeignKey(x=>x.CartsId)
                 .IsRequired(true);
 

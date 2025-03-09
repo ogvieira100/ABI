@@ -18,7 +18,7 @@ namespace DeveloperEvaluation.CartsApi.Models
 
         public RattingValueObjects Ratting { get; set; }
 
-        public IEnumerable<CartsItens> CartsItens { get; set; }
+        public virtual IEnumerable<CartsItens> CartsItens { get; set; }
 
         public Products()
         {

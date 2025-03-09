@@ -16,7 +16,7 @@ namespace DeveloperEvaluation.ProductsApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyDateTimeConversion();
         }
