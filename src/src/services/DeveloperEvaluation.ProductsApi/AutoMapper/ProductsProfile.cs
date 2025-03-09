@@ -3,6 +3,7 @@ using DeveloperEvaluation.Core.Security;
 using DeveloperEvaluation.MessageBus.Models.Integration;
 using DeveloperEvaluation.ProductsApi.Application.CreateProducts;
 using DeveloperEvaluation.ProductsApi.Application.DeleteProducts;
+using DeveloperEvaluation.ProductsApi.Application.UpdateProducts;
 using DeveloperEvaluation.ProductsApi.Dto;
 using DeveloperEvaluation.ProductsApi.Models;
 using DeveloperEvaluation.ProductsApi.Models.Request;
@@ -25,6 +26,7 @@ namespace DeveloperEvaluation.ProductsApi.AutoMapper
                  .AfterMap((src, dest) => src.Ratting ??= new RattingValueObjects())
                 ;
             CreateMap<CreateProductsResult, CreateProductResponse>();
+            CreateMap<UpdateProductsResult, UpdateProductResponse>();
             CreateMap<CreateProductsCommand, Products>();
             CreateMap<Products, CreateProductsResult>();
             CreateMap<ProductsSearchDto, Products>()
@@ -38,7 +40,15 @@ namespace DeveloperEvaluation.ProductsApi.AutoMapper
                 .ForPath(dest => dest.Ratting.Count, opt => opt.MapFrom(src => src.Contador))
                 .AfterMap((src, dest) => dest.Ratting ??= new RattingValueObjects())
                 ;
-            
+
+            //
+
+            CreateMap<UpdateProductRequest, UpdateProductsCommand>()
+            .ForPath(dest => dest.Ratting.Rate, opt => opt.MapFrom(src => src.Rate))
+            .ForPath(dest => dest.Ratting.Count, opt => opt.MapFrom(src => src.Count))
+            .AfterMap((src, dest) => dest.Ratting ??= new RattingValueObjects())
+            ;
+
             CreateMap<CreateProductRequest, CreateProductsCommand>()
                 .ForPath(dest => dest.Ratting.Rate, opt => opt.MapFrom(src => src.Rate))
                 .ForPath(dest => dest.Ratting.Count, opt => opt.MapFrom(src => src.Count))

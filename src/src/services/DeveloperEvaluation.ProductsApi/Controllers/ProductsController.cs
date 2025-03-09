@@ -5,6 +5,7 @@ using DeveloperEvaluation.Core.Web;
 using DeveloperEvaluation.ProductsApi.Application.CreateProducts;
 using DeveloperEvaluation.ProductsApi.Application.DeleteProducts;
 using DeveloperEvaluation.ProductsApi.Application.Queries;
+using DeveloperEvaluation.ProductsApi.Application.UpdateProducts;
 using DeveloperEvaluation.ProductsApi.Models;
 using DeveloperEvaluation.ProductsApi.Models.Request;
 using DeveloperEvaluation.ProductsApi.Models.Response;
@@ -107,6 +108,36 @@ namespace DeveloperEvaluation.ProductsApi.Controllers
                 throw new KeyNotFoundException($"Produto com  ID {id} não encontrado");
 
             return base.Ok(_mapper.Map<GetProductResponse>(response));
+        }
+
+
+        /// <summary>
+        /// UpdateProducts
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [ProducesResponseType(typeof(ApiResponseWithData<UpdateProductResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateProducts([FromBody] UpdateProductRequest request, CancellationToken cancellationToken = default)
+        {
+            var validator = new UpdateProductRequestValidator();
+
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var command = _mapper.Map<UpdateProductsCommand>(request);
+            var response = await _mediator.Send(command, cancellationToken);
+
+            return Ok(new ApiResponseWithData<UpdateProductResponse>
+            {
+                Success = true,
+                Message = "Product updated successfully",
+                Data = _mapper.Map<UpdateProductResponse>(response)
+            });
         }
 
         /// <summary>
