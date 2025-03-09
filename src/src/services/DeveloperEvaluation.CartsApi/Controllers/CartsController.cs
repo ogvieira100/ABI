@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using DeveloperEvaluation.CartsApi.Application.CreateCarts;
+using DeveloperEvaluation.CartsApi.Models.Request;
+using DeveloperEvaluation.CartsApi.Models.Response;
 using DeveloperEvaluation.Core.Utils;
 using DeveloperEvaluation.Core.Web;
 using MediatR;
@@ -17,35 +20,34 @@ namespace DeveloperEvaluation.CartsApi.Controllers
             _mapper = mapper;
 
         }
-
         /// <summary>
-        /// CreateProducts
+        /// CreateCarts
         /// </summary>
-        /// <param name="request">CreateProductRequest</param>
+        /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        //[HttpPost]
-        //[ProducesResponseType(typeof(ApiResponseWithData<CreateProductResponse>), StatusCodes.Status201Created)]
-        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        //public async Task<IActionResult> CreateCarts([FromBody] CreateProductRequest request, CancellationToken cancellationToken = default)
-        //{
-        //    var validator = new CreateProductRequestValidator();
+        [HttpPost]
+        [ProducesResponseType(typeof(ApiResponseWithData<CreateCartsResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateCarts([FromBody] CreateCartsRequest request, CancellationToken cancellationToken = default)
+        {
+            var validator = new CreateCartsRequestValidator();
 
-        //    var validationResult = await validator.ValidateAsync(request, cancellationToken);
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        //    if (!validationResult.IsValid)
-        //        return BadRequest(validationResult.Errors);
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
 
-        //    var command = _mapper.Map<CreateProductsCommand>(request);
-        //    var response = await _mediator.Send(command, cancellationToken);
+            var command = _mapper.Map<CreateCartsCommand>(request);
+            var response = await _mediator.Send(command, cancellationToken);
 
-        //    return Created(string.Empty, new ApiResponseWithData<CreateProductResponse>
-        //    {
-        //        Success = true,
-        //        Message = "Product created successfully",
-        //        Data = _mapper.Map<CreateProductResponse>(response)
-        //    });
-        //}
+            return Created(string.Empty, new ApiResponseWithData<CreateCartsResponse>
+            {
+                Success = true,
+                Message = "Carts created successfully",
+                Data = _mapper.Map<CreateCartsResponse>(response)
+            });
+        }
 
 
     }

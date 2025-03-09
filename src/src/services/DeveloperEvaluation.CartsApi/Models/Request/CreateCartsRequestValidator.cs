@@ -1,9 +1,10 @@
-﻿using DeveloperEvaluation.CartsApi.Application.CreateCartsItens;
+﻿using DeveloperEvaluation.CartsApi.Application.CreateCarts;
+using DeveloperEvaluation.CartsApi.Application.CreateCartsItens;
 using FluentValidation;
 
-namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
+namespace DeveloperEvaluation.CartsApi.Models.Request
 {
-    public class CreateCartsValidator: AbstractValidator<CreateCartsCommand>
+    public class CreateCartsRequestValidator : AbstractValidator<CreateCartsRequest>
     {
         public CreateCartsValidator()
         {

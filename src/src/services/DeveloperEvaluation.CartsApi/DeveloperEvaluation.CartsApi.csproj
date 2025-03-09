@@ -27,9 +27,4 @@
     <ProjectReference Include="..\..\building-blocks\DeveloperEvaluation.Core\DeveloperEvaluation.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\DeleteCarts\" />
-    <Folder Include="Application\DeleteCartItens\" />
-  </ItemGroup>
-
 </Project>
