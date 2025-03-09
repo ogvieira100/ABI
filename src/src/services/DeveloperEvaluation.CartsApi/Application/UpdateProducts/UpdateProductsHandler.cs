@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DeveloperEvaluation.CartsApi.Application.UpdateCartsItens;
 using DeveloperEvaluation.CartsApi.Models;
 using DeveloperEvaluation.Core.Data;
 using DeveloperEvaluation.MessageBus.Models.Integration;
@@ -52,14 +53,14 @@ namespace DeveloperEvaluation.CartsApi.Application.UpdateProducts
                 product.Ratting.Count = command.Ratting.Count;
             }
 
+            /*atualizar carts com o preço unitario do produto*/
+
             await _productsRepository.UnitOfWork.CommitAsync();
+            var cartsUpdate = _mapper.Map<UpdateCartsItensUnitPriceCommand>(product);
+            await _mediator.Send(cartsUpdate,cancellationToken);
 
-            var UpdateProductsIntegrationEvent = _mapper.Map<UpdateProductsIntegrationEvent>(product);
-
-            await _mediator.Publish(UpdateProductsIntegrationEvent);
             var result = _mapper.Map<UpdateProductsResult>(product);
             return result;
         }
     }
-}
 }
