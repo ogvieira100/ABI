@@ -11,5 +11,12 @@ namespace DeveloperEvaluation.CartsApi.Models
         public virtual Products Product { get; set; }
         public Guid CartsId { get; set; }
         public virtual Carts Carts { get; set; }
+        public DateTime DateAdd { get; set; }
+        public DateTime? DateUpdated { get; set; }
+
+        public CartsItens()
+        {
+            DateAdd = new DateTime();
+        }
     }
 }

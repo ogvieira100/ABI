@@ -24,6 +24,16 @@ namespace DeveloperEvaluation.CartsApi.Mapping
                 .HasColumnName("DataVenda")
                 .IsRequired(false);
 
+
+            builder.Property(x => x.DateAdd)
+              .HasColumnName("DataInclusao")
+              .IsRequired();
+
+            builder.Property(x => x.DateUpdated)
+            .HasColumnName("DataAtualizacao")
+            .IsRequired(false);
+
+
             builder.ToTable("Carrinho");
 
         }

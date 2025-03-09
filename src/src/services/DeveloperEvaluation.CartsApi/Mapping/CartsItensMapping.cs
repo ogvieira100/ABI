@@ -25,6 +25,15 @@ namespace DeveloperEvaluation.CartsApi.Mapping
                .HasColumnName("PrecoUnitario")
                .IsRequired();
 
+            builder.Property(x => x.DateAdd)
+              .HasColumnName("DataInclusao")
+              .IsRequired();
+
+            builder.Property(x => x.DateUpdated)
+            .HasColumnName("DataAtualizacao")
+            .IsRequired(false);
+
+
             /*relations One two many*/
 
             builder.HasOne(x => x.Carts)

@@ -18,6 +18,7 @@ namespace DeveloperEvaluation.ProductsApi.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new ProductMapping());
+            modelBuilder.ApplyDateTimeConversion();
         }
     }
 }

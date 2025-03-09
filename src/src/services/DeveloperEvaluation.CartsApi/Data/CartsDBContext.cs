@@ -19,6 +19,7 @@ namespace DeveloperEvaluation.CartsApi.Data
             modelBuilder.ApplyConfiguration(new ProductMapping());
             modelBuilder.ApplyConfiguration(new CartsItensMapping());
             modelBuilder.ApplyConfiguration(new CartsMapping());
+            modelBuilder.ApplyDateTimeConversion();
         }
     }
 }

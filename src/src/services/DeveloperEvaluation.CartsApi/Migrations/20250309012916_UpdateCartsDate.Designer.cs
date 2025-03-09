@@ -3,6 +3,7 @@ using System;
 using DeveloperEvaluation.CartsApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeveloperEvaluation.CartsApi.Migrations
 {
     [DbContext(typeof(CartsDBContext))]
-    partial class CartsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250309012916_UpdateCartsDate")]
+    partial class UpdateCartsDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,16 +33,14 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                         .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<DateTime>("DateAdd")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DataInclusao");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DateOfSale")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DataVenda");
 
                     b.Property<DateTime?>("DateUpdated")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DataAtualizacao");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("StatusCartsEn")
                         .HasColumnType("integer")
@@ -65,12 +66,10 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("DateAdd")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DataInclusao");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DateUpdated")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("DataAtualizacao");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("Discounts")
                         .HasPrecision(20, 5)

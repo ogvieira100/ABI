@@ -16,12 +16,15 @@ namespace DeveloperEvaluation.CartsApi.Models
         public Guid UserIdInsert { get; set; }
         public virtual List<CartsItens> CartsItens { get; set; }
         public DateTime? DateOfSale { get; set; }
+        public DateTime DateAdd { get; set; }
+        public DateTime? DateUpdated { get; set; }
         public StatusCartsEn StatusCartsEn { get; set; }
 
         public Carts()
         {
             StatusCartsEn = StatusCartsEn.NotCanceled;
             CartsItens = new List<CartsItens>();
+            DateAdd = new DateTime();
         }
     }
 }
