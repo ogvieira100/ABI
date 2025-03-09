@@ -1,5 +1,7 @@
 ﻿using DeveloperEvaluation.Core.Data;
 using DeveloperEvaluation.Core.Validation;
+using DeveloperEvaluation.MessageBus.Interface;
+using DeveloperEvaluation.MessageBus.Models;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.SignalR;
@@ -21,6 +23,7 @@ namespace DeveloperEvaluation.Core.Utils
             builder.Services.AddScoped(typeof(IRepositoryConsult<>), typeof(RepositoryConsult<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            builder.Services.AddSingleton<IMessageBusRabbitMq, MessageBusRabbitMq>();
 
         }
     }

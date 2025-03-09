@@ -1,5 +1,6 @@
 using DeveloperEvaluation.CartsApi.Application.Queries;
 using DeveloperEvaluation.CartsApi.Data;
+using DeveloperEvaluation.CartsApi.Services;
 using DeveloperEvaluation.Core.Data;
 using DeveloperEvaluation.Core.Utils;
 using DeveloperEvaluation.Core.Web;
@@ -42,6 +43,29 @@ builder.Services.AddScoped<ICartsQueries, CartsQueries>();
 
 DependencyResolver.RegisterDependencies(builder);
 
+/*hosted services*/
+builder.Services
+    .AddHostedService<InsertProductsIntegrationHandler>();
+
+builder.Services.AddCors(options =>
+{
+
+    options.AddPolicy("Development",
+          builder =>
+              builder
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowAnyOrigin()
+              ); // allow credentials
+
+    options.AddPolicy("Production",
+        builder =>
+            builder
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowAnyOrigin()
+              ); // allow credentials
+});
 
 var app = builder.Build();
 app.UseMiddleware<ValidationExceptionMiddleware>();
@@ -49,13 +73,27 @@ app.UseMiddleware<ValidationExceptionMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-   
-}
-app.MapOpenApi();
-app.UseSwaggerUI(opt => {
+    app.MapOpenApi();
+    app.UseSwaggerUI(opt =>
+    {
 
-    opt.SwaggerEndpoint("/openapi/v1.json", "Carts api");
-});
+        opt.SwaggerEndpoint("/openapi/v1.json", "Products api");
+    });
+    app.UseDeveloperExceptionPage();
+    app.UseCors("Development");
+}
+else
+{
+    app.UseDeveloperExceptionPage();
+    app.MapOpenApi();
+    app.UseSwaggerUI(opt =>
+    {
+
+        opt.SwaggerEndpoint("/openapi/v1.json", "Products api");
+    });
+    app.UseCors("Production");
+}
+
 
 //app.UseHttpsRedirection();
 

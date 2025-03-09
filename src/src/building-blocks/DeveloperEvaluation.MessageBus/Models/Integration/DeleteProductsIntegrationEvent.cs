@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeveloperEvaluation.MessageBus.Models
+namespace DeveloperEvaluation.MessageBus.Models.Integration
 {
-    public abstract class IntegrationEvent : Event
+   public class DeleteProductsIntegrationEvent: ProductsIntegrationEvent
     {
-
-
     }
 }

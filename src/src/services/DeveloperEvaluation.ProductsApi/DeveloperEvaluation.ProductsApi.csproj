@@ -26,6 +26,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building-blocks\DeveloperEvaluation.Core\DeveloperEvaluation.Core.csproj" />
+    <ProjectReference Include="..\..\building-blocks\DeveloperEvaluation.MessageBus\DeveloperEvaluation.MessageBus.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\UpdateProducts\" />
   </ItemGroup>
 
 </Project>

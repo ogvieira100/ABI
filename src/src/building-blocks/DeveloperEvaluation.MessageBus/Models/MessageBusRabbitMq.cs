@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using DeveloperEvaluation.MessageBus.Models.Integration;
 
 namespace DeveloperEvaluation.MessageBus.Models
 {

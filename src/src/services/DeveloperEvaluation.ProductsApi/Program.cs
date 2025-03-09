@@ -6,6 +6,7 @@ using DeveloperEvaluation.Core.Web;
 using DeveloperEvaluation.ProductsApi.Application.Queries;
 using DeveloperEvaluation.ProductsApi.Data;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,6 +48,26 @@ builder.Services.AddScoped<IProductsQueries, ProductsQueries>();
 
 DependencyResolver.RegisterDependencies(builder);
 
+builder.Services.AddCors(options =>
+{
+
+    options.AddPolicy("Development",
+          builder =>
+              builder
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowAnyOrigin()
+              ); // allow credentials
+
+    options.AddPolicy("Production",
+        builder =>
+            builder
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowAnyOrigin()
+              ); // allow credentials
+});
+
 var app = builder.Build();
 app.UseMiddleware<ValidationExceptionMiddleware>();
 
@@ -54,15 +75,29 @@ app.UseMiddleware<ValidationExceptionMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.MapOpenApi();
+    app.UseSwaggerUI(opt =>
+    {
 
+        opt.SwaggerEndpoint("/openapi/v1.json", "Products api");
+    });
+    app.UseDeveloperExceptionPage();
+    app.UseCors("Development");
+}
+else
+{
+    app.UseDeveloperExceptionPage();
+    app.MapOpenApi();
+    app.UseSwaggerUI(opt =>
+    {
+
+        opt.SwaggerEndpoint("/openapi/v1.json", "Products api");
+    });
+    app.UseCors("Production");
 }
 
-app.MapOpenApi();
-app.UseSwaggerUI(opt =>
-{
 
-    opt.SwaggerEndpoint("/openapi/v1.json", "Products api");
-});
+
 
 //app.UseHttpsRedirection();
 

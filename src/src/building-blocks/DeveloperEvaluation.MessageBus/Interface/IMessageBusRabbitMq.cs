@@ -1,4 +1,5 @@
 ﻿using DeveloperEvaluation.MessageBus.Models;
+using DeveloperEvaluation.MessageBus.Models.Integration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

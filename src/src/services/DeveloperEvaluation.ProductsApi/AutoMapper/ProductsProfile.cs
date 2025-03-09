@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DeveloperEvaluation.Core.Security;
+using DeveloperEvaluation.MessageBus.Models.Integration;
 using DeveloperEvaluation.ProductsApi.Application.CreateProducts;
 using DeveloperEvaluation.ProductsApi.Application.DeleteProducts;
 using DeveloperEvaluation.ProductsApi.Dto;
@@ -18,7 +19,11 @@ namespace DeveloperEvaluation.ProductsApi.AutoMapper
             CreateMap<Products, GetProductResponse>();
 
             CreateMap<DeleteProductRequest, DeleteProductsCommand>();
-            //DeleteProductRequest
+            CreateMap<Products, InsertProductsIntegrationEvent>()
+                 .ForMember(dest => dest.Rate, opt => opt.MapFrom(src => src.Ratting.Rate))
+                 .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.Ratting.Count))
+                 .AfterMap((src, dest) => src.Ratting ??= new RattingValueObjects())
+                ;
             CreateMap<CreateProductsResult, CreateProductResponse>();
             CreateMap<CreateProductsCommand, Products>();
             CreateMap<Products, CreateProductsResult>();
