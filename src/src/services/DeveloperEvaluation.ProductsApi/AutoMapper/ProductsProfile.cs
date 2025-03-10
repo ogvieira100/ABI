@@ -18,13 +18,19 @@ namespace DeveloperEvaluation.ProductsApi.AutoMapper
         public ProductsProfile()
         {
             CreateMap<Products, GetProductResponse>();
-
+            CreateMap<Products, UpdateProductsResult>();
+            //
             CreateMap<DeleteProductRequest, DeleteProductsCommand>();
             CreateMap<Products, InsertProductsIntegrationEvent>()
                  .ForMember(dest => dest.Rate, opt => opt.MapFrom(src => src.Ratting.Rate))
                  .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.Ratting.Count))
                  .AfterMap((src, dest) => src.Ratting ??= new RattingValueObjects())
                 ;
+            CreateMap<Products, UpdateProductsIntegrationEvent>()
+                .ForMember(dest => dest.Rate, opt => opt.MapFrom(src => src.Ratting.Rate))
+                .ForMember(dest => dest.Count, opt => opt.MapFrom(src => src.Ratting.Count))
+                .AfterMap((src, dest) => src.Ratting ??= new RattingValueObjects())
+               ;
             CreateMap<CreateProductsResult, CreateProductResponse>();
             CreateMap<UpdateProductsResult, UpdateProductResponse>();
             CreateMap<CreateProductsCommand, Products>();

@@ -39,7 +39,9 @@ DependencyResolver.RegisterDependencies(builder);
 
 /*hosted services*/
 builder.Services
-    .AddHostedService<InsertProductsIntegrationHandler>();
+    .AddHostedService<InsertProductsIntegrationHandler>()
+    .AddHostedService<UpdateProductsIntegrationHandler>()
+    ;
 
 builder.Services.AddCors(options =>
 {

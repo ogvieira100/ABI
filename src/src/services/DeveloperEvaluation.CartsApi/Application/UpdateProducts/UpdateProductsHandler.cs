@@ -33,12 +33,12 @@ namespace DeveloperEvaluation.CartsApi.Application.UpdateProducts
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
 
-            var productTitle = await _productsRepository.RepositoryConsult.SearchAsync(x => x.Title == command.Title && x.Id != command.Id, cancellationToken);
+            var productTitle = await _productsRepository.RepositoryConsult.SearchAsync(x => x.Title == command.Title && x.ProductIdIntegrated != command.Id, cancellationToken);
             if (productTitle != null && productTitle.Any())
                 throw new InvalidOperationException($"Produto com o titulo {command.Title} já existe");
 
 
-            var product = (await _productsRepository.RepositoryConsult.SearchAsync(x => x.Id == command.Id,cancellationToken))?.FirstOrDefault();
+            var product = (await _productsRepository.RepositoryConsult.SearchAsync(x => x.ProductIdIntegrated == command.Id,cancellationToken))?.FirstOrDefault();
             if (product == null)
                 throw new InvalidOperationException($"Produto não encontrado!");
 
@@ -54,7 +54,6 @@ namespace DeveloperEvaluation.CartsApi.Application.UpdateProducts
             }
 
             /*atualizar carts com o preço unitario do produto*/
-
             await _productsRepository.UnitOfWork.CommitAsync();
             var cartsUpdate = _mapper.Map<UpdateCartsItensUnitPriceCommand>(product);
             await _mediator.Send(cartsUpdate,cancellationToken);

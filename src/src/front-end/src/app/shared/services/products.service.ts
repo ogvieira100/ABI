@@ -40,6 +40,17 @@ export class ProductsService extends BaseService {
              })
          )  
     }
+    upadteProducts(createProductRequest:CreateProductRequest):Observable<ApiResponseSend<Product>>{  
+
+      return this.http
+         .post<ApiResponseSend<Product>>(this.getUrlProduct(), createProductRequest)
+         .pipe(
+             catchError((error) => {
+                 this.treateErrorHttp(error);
+                 return throwError(() => error);
+             })
+         )  
+    }
 
     getProducts(getPaginatedProductsRequest:GetPaginatedProductsRequest):Observable<ApiResponse<Product>>{
 

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using DeveloperEvaluation.CartsApi.Models;
 using DeveloperEvaluation.Core.Data;
+using FluentValidation;
 using MediatR;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DeveloperEvaluation.CartsApi.Application.UpdateCartsItens
 {
@@ -25,10 +27,16 @@ namespace DeveloperEvaluation.CartsApi.Application.UpdateCartsItens
 
         public async Task<UpdateCartsItensUnitPriceResult> Handle(UpdateCartsItensUnitPriceCommand request, CancellationToken cancellationToken)
         {
-            var product = (await _productsRepository.RepositoryConsult.SearchAsync(x => x.Id == request.ProductId)).FirstOrDefault();
 
+            var validator = new UpdateCartsItensUnitPriceValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult.Errors);
+
+            var product = (await _productsRepository.RepositoryConsult.SearchAsync(x => x.ProductIdIntegrated == request.ProductId)).FirstOrDefault();
             var result = new UpdateCartsItensUnitPriceResult();
-            var caritens =  await _carItensRepository.RepositoryConsult.SearchAsync(x => x.ProductId == request.ProductId, cancellationToken);
+            var caritens =  await _carItensRepository.RepositoryConsult.SearchAsync(x => x.Product.ProductIdIntegrated == request.ProductId, cancellationToken);
              foreach (var item in caritens)
             {
                 item.UnitPrices = item.UnitPrices;
