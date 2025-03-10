@@ -4,10 +4,11 @@
 
 export const environment = {
     production: false,
-    apiProduct: 'https://localhost:7296/api/v1/',
-    apiCarts:''
-   
+    apiProduct: 'http://localhost:5162/api/',
+    apiCarts:'http://localhost:5077/api/'
+  
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

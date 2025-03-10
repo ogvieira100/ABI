@@ -1,8 +1,8 @@
 <nav>
     <ngb-pagination 
-      [collectionSize]="totalItems"
-      [(page)]="currentPage"
-      [pageSize]="pageSize"
+      [collectionSize]="paginateModel.totalItens"
+      [page]="paginateModel.currentPage"
+      [pageSize]="paginateModel.pageSize"
       [boundaryLinks]="true"
       (pageChange)="onPageChange($event)">
     </ngb-pagination>

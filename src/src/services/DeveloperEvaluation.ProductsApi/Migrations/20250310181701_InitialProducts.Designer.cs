@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeveloperEvaluation.ProductsApi.Migrations
 {
     [DbContext(typeof(ProductDBContext))]
-    [Migration("20250309004724_InitialProducts")]
+    [Migration("20250310181701_InitialProducts")]
     partial class InitialProducts
     {
         /// <inheritdoc />
@@ -21,6 +21,9 @@ namespace DeveloperEvaluation.ProductsApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);

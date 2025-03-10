@@ -16,6 +16,12 @@ namespace DeveloperEvaluation.CartsApi.Mapping
                 .HasMaxLength(50)
                 .IsRequired();
 
+            builder.Property(x => x.ProductIdIntegrated)
+                .HasColumnName("ProdutoIdIntegrado")
+                .IsRequired();
+
+            //
+
             builder.Property(x => x.Description)
                 .HasColumnName("Descricao")
                 .HasMaxLength(100)

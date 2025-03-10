@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PaginatedResponse } from '../../shared/models/response/paginated-response';
 import { Product } from '../../shared/models/domain/product';
+import { ProductsService } from '../../shared/services/products.service';
+import { GetPaginatedProductsRequest } from '../../shared/models/request/get-paginated-products-request';
+import { ApiResponse } from '../../shared/models/response/api-response';
+import { PaginateModel } from '../../shared/models/utils/paginate-model';
 
 @Component({
   selector: 'dev-ev-list',
@@ -9,10 +13,20 @@ import { Product } from '../../shared/models/domain/product';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
 
-  paginatedResponse: PaginatedResponse<Product> = new PaginatedResponse(); 
+  paginatedResponse: ApiResponse<Product> = new ApiResponse(); 
+ 
 
-  constructor() { }
+  constructor(private productsService:ProductsService) { 
 
+  }
+  ngOnInit(): void {
+    
+  }
+
+  async searchGrid(getPaginatedProductsRequest:GetPaginatedProductsRequest){
+      this.paginatedResponse = await this.productsService.getProductsAsync(getPaginatedProductsRequest)
+       
+    }
 }

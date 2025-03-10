@@ -1,11 +1,12 @@
 
 <div class="container mt-3">
-<dev-ev-filter></dev-ev-filter>
-<dev-ev-list></dev-ev-list>
+<dev-ev-filter (sendFilterEvent)="sendFilterEvent($event)" ></dev-ev-filter>
+<dev-ev-list #listComponent  ></dev-ev-list>
  <!-- Rodapé -->
  <footer class="mt-3 text-center">
     <small>
-        <dev-ev-pagination></dev-ev-pagination>
+        <dev-ev-pagination (pageChange)="pageChange($event)"
+         [paginateModel]="paginateModel" ></dev-ev-pagination>
     </small>
 </footer>
 </div>

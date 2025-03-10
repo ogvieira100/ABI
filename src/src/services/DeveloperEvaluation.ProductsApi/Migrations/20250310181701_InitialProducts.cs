@@ -2,11 +2,12 @@
 
 #nullable disable
 
-namespace DeveloperEvaluation.CartsApi.Migrations
+namespace DeveloperEvaluation.ProductsApi.Migrations
 {
     /// <inheritdoc />
     public partial class InitialProducts : Migration
     {
+
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,7 +36,7 @@ namespace DeveloperEvaluation.CartsApi.Migrations
           };
 
             migrationBuilder.InsertData(
-                table: "ProdutosCarrinho",
+                table: "Produtos",
                 columns: new[] { "Id", "Titulo", "Valor", "Descricao", "Categoria", "Imagem", "Rate", "Contador" },
                 values: produtos
             );
@@ -69,7 +70,7 @@ namespace DeveloperEvaluation.CartsApi.Migrations
             };
 
             migrationBuilder.DeleteData(
-                table: "ProdutosCarrinho",
+                table: "Produtos",
                 keyColumn: "Id",
                 keyValues: ids
             );

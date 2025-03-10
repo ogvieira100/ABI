@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaginateModel } from '../../models/utils/paginate-model';
 @Component({
   selector: 'dev-ev-pagination',
   standalone: true,
@@ -10,15 +11,14 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PaginationComponent {
 
-  @Input() totalItems: number = 0;
-  @Input() pageSize: number = 10;
-  @Output() pageChange = new EventEmitter<number>();
+  @Input() paginateModel: PaginateModel = new PaginateModel();  
+  @Output() pageChange:EventEmitter<PaginateModel> = new EventEmitter<PaginateModel>();
 
-  currentPage = 1;
+  
   
   onPageChange(page: number) {
-    this.currentPage = page;
-    this.pageChange.emit(this.currentPage);
+    this.paginateModel.currentPage = page;
+    this.pageChange.emit(this.paginateModel);
   }
 
 }

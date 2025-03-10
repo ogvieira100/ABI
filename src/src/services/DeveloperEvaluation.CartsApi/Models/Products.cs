@@ -6,6 +6,8 @@ namespace DeveloperEvaluation.CartsApi.Models
 {
     public class Products : BaseEntity
     {
+
+        public Guid ProductIdIntegrated { get; set; }
         public string? Title { get; set; }
 
         public decimal Price { get; set; }

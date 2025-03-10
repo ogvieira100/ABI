@@ -18,6 +18,9 @@ namespace DeveloperEvaluation.CartsApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -127,6 +130,10 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                         .HasColumnType("numeric(20,5)")
                         .HasColumnName("Valor");
 
+                    b.Property<Guid>("ProductIdIntegrated")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ProdutoIdIntegrado");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -141,7 +148,7 @@ namespace DeveloperEvaluation.CartsApi.Migrations
             modelBuilder.Entity("DeveloperEvaluation.CartsApi.Models.CartsItens", b =>
                 {
                     b.HasOne("DeveloperEvaluation.CartsApi.Models.Carts", "Carts")
-                        .WithMany("CartsItens")
+                        .WithMany("CreateCardItens")
                         .HasForeignKey("CartsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -188,7 +195,7 @@ namespace DeveloperEvaluation.CartsApi.Migrations
 
             modelBuilder.Entity("DeveloperEvaluation.CartsApi.Models.Carts", b =>
                 {
-                    b.Navigation("CartsItens");
+                    b.Navigation("CreateCardItens");
                 });
 
             modelBuilder.Entity("DeveloperEvaluation.CartsApi.Models.Products", b =>

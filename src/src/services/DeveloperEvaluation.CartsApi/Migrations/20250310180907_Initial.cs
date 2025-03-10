@@ -18,6 +18,8 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     UsuarioInsert = table.Column<Guid>(type: "uuid", nullable: false),
                     DataVenda = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DataInclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DataAtualizacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     StatusCarrinho = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -30,6 +32,7 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    ProdutoIdIntegrado = table.Column<Guid>(type: "uuid", nullable: false),
                     Titulo = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Valor = table.Column<decimal>(type: "numeric(20,5)", precision: 20, scale: 5, nullable: false),
                     Descricao = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
@@ -52,7 +55,9 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                     PrecoUnitario = table.Column<decimal>(type: "numeric(20,5)", precision: 20, scale: 5, nullable: false),
                     Desconto = table.Column<decimal>(type: "numeric(20,5)", precision: 20, scale: 5, nullable: true),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CartsId = table.Column<Guid>(type: "uuid", nullable: false)
+                    CartsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DataInclusao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DataAtualizacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

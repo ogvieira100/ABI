@@ -24,7 +24,9 @@ namespace DeveloperEvaluation.CartsApi.AutoMapper
             CreateMap<CreateCartsResult, CreateCartsResponse>();
             CreateMap<CartsItens, CreateCartsItensResult>();
             CreateMap<InsertProductsIntegrationEvent, CreateProductsCommand>();
-            CreateMap<CreateProductsCommand, Products>();
+            CreateMap<CreateProductsCommand, Products>()
+               .ForMember(dest => dest.ProductIdIntegrated, opt => opt.MapFrom(src => src.Id))
+                ;
             CreateMap<Products, CreateProductsResult>();
 
             //

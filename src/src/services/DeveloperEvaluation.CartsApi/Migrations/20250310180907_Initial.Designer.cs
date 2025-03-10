@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DeveloperEvaluation.CartsApi.Migrations
 {
     [DbContext(typeof(CartsDBContext))]
-    [Migration("20250309005542_InitialProducts")]
-    partial class InitialProducts
+    [Migration("20250310180907_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,9 @@ namespace DeveloperEvaluation.CartsApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -32,9 +35,17 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
 
+                    b.Property<DateTime>("DateAdd")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DataInclusao");
+
                     b.Property<DateTime?>("DateOfSale")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DataVenda");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DataAtualizacao");
 
                     b.Property<int>("StatusCartsEn")
                         .HasColumnType("integer")
@@ -58,6 +69,14 @@ namespace DeveloperEvaluation.CartsApi.Migrations
 
                     b.Property<Guid>("CartsId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateAdd")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DataInclusao");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DataAtualizacao");
 
                     b.Property<decimal?>("Discounts")
                         .HasPrecision(20, 5)
@@ -114,6 +133,10 @@ namespace DeveloperEvaluation.CartsApi.Migrations
                         .HasColumnType("numeric(20,5)")
                         .HasColumnName("Valor");
 
+                    b.Property<Guid>("ProductIdIntegrated")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ProdutoIdIntegrado");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -128,7 +151,7 @@ namespace DeveloperEvaluation.CartsApi.Migrations
             modelBuilder.Entity("DeveloperEvaluation.CartsApi.Models.CartsItens", b =>
                 {
                     b.HasOne("DeveloperEvaluation.CartsApi.Models.Carts", "Carts")
-                        .WithMany("CartsItens")
+                        .WithMany("CreateCardItens")
                         .HasForeignKey("CartsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -175,7 +198,7 @@ namespace DeveloperEvaluation.CartsApi.Migrations
 
             modelBuilder.Entity("DeveloperEvaluation.CartsApi.Models.Carts", b =>
                 {
-                    b.Navigation("CartsItens");
+                    b.Navigation("CreateCardItens");
                 });
 
             modelBuilder.Entity("DeveloperEvaluation.CartsApi.Models.Products", b =>
