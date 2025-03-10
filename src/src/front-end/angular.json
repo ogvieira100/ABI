@@ -102,16 +102,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "portal-zuritch-supplier:build:production"
+              "buildTarget": "DeveloperEvaluation:build:production"
             },
             "development": {
-              "buildTarget": "portal-zuritch-supplier:build:development"
+              "buildTarget": "DeveloperEvaluation:build:development"
             },
             "local": {
-              "buildTarget": "portal-zuritch-supplier:build:local"
+              "buildTarget": "DeveloperEvaluation:build:local"
             },
             "homol": {
-              "buildTarget": "portal-zuritch-supplier:build:homol"
+              "buildTarget": "DeveloperEvaluation:build:homol"
             }
           },
           "defaultConfiguration": "local"

@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperEvaluation.Bff.Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperEvaluation.Bff.Carts", "src\api-gateways\DeveloperEvaluation.Bff.Carts\DeveloperEvaluation.Bff.Carts.csproj", "{6CF1441E-08B3-4D38-9F4D-9D8857FF9C02}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testes", "testes", "{4A9CEEA0-820D-44CC-9E1A-967942E99D4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeveloperEvaluation.ProductsApiTest", "src\testes\DeveloperEvaluation.ProductsApiTest\DeveloperEvaluation.ProductsApiTest.csproj", "{088D1547-6FB5-4E14-BB85-689B65CED35D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,10 @@ Global
 		{6CF1441E-08B3-4D38-9F4D-9D8857FF9C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CF1441E-08B3-4D38-9F4D-9D8857FF9C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CF1441E-08B3-4D38-9F4D-9D8857FF9C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{088D1547-6FB5-4E14-BB85-689B65CED35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088D1547-6FB5-4E14-BB85-689B65CED35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088D1547-6FB5-4E14-BB85-689B65CED35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088D1547-6FB5-4E14-BB85-689B65CED35D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +96,8 @@ Global
 		{A8C8CF75-E415-4AC9-9A8E-94561732CC9C} = {3038AD84-89C8-4AF9-8CED-7CF6409DB41D}
 		{1FB04C43-4D26-4D5B-B02B-166071F3D9BB} = {9F779B67-D727-4024-8323-2B691BE544BD}
 		{6CF1441E-08B3-4D38-9F4D-9D8857FF9C02} = {9F779B67-D727-4024-8323-2B691BE544BD}
+		{4A9CEEA0-820D-44CC-9E1A-967942E99D4A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{088D1547-6FB5-4E14-BB85-689B65CED35D} = {4A9CEEA0-820D-44CC-9E1A-967942E99D4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C391ADF-8006-44BF-8B50-DFEFFBD2C73C}

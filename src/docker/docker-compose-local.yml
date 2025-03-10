@@ -105,3 +105,15 @@ services:
             - pgadmin
             - postgres
             - rabbitmq              
+  front-end:
+    build:
+      context: ../src/front-end
+      dockerfile: Dockerfile
+    container_name: front-end
+    ports:
+      - "8081:80" 
+    networks:
+      - developerEvaluation-network
+    depends_on:
+      - api-products
+      - api-carts     

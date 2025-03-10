@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PaginatedResponse } from '../../shared/models/response/paginated-response';
+import { Product } from '../../shared/models/domain/product';
 
 @Component({
   selector: 'dev-ev-list',
@@ -10,7 +11,7 @@ import { PaginatedResponse } from '../../shared/models/response/paginated-respon
 })
 export class ListComponent {
 
-  paginatedResponse: PaginatedResponse = new PaginatedResponse(); 
+  paginatedResponse: PaginatedResponse<Product> = new PaginatedResponse(); 
 
   constructor() { }
 
