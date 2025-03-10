@@ -72,7 +72,9 @@ services:
             dockerfile: ./services/DeveloperEvaluation.ProductsApi/Dockerfile      
         restart: always  
         ports:
-            - "5162:5162"                   
+            - "5162:5162"  
+        networks:
+          - developerEvaluation-network                     
         environment: 
             ASPNETCORE_ENVIRONMENT: Docker
             ASPNETCORE_URLS: http://+:5162
@@ -82,4 +84,24 @@ services:
             - mongo
             - pgadmin
             - postgres
-            - rabbitmq    
+            - rabbitmq
+  api-carts:
+        container_name: developerEvaluation-api-carts
+        build: 
+            context: ../src
+            dockerfile: ./services/DeveloperEvaluation.CartsApi/Dockerfile      
+        restart: always  
+        ports:
+            - "5077:5077" 
+        networks:
+          - developerEvaluation-network                      
+        environment: 
+            ASPNETCORE_ENVIRONMENT: Docker
+            ASPNETCORE_URLS: http://+:5077
+            CUSTOMCONNSTR_DefaultConnection: "Server=postgres;Port=5432;Database=db_local;Username=admin;Password=Sistema@2024;Include Error Detail=true;"
+            AppSettings__DatabaseType: PostgreSql           
+        depends_on:
+            - mongo
+            - pgadmin
+            - postgres
+            - rabbitmq              

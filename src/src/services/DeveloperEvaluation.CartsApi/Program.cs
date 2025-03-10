@@ -8,13 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
-IWebHostEnvironment environment = builder.Environment;
 
-builder.Configuration.AddJsonFile("appsettings.json", true, true)
-                    .SetBasePath(environment.ContentRootPath)
-                    .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true, true)
-                    .AddEnvironmentVariables();
 
 // Add services to the container.
 
