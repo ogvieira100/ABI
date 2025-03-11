@@ -39,7 +39,7 @@ namespace DeveloperEvaluation.CartsApi.Application.UpdateCartsItens
             var caritens =  await _carItensRepository.RepositoryConsult.SearchAsync(x => x.Product.ProductIdIntegrated == request.ProductId, cancellationToken);
              foreach (var item in caritens)
             {
-                item.UnitPrices = item.UnitPrices;
+                item.UnitPrices = product.Price;
             }
             await _productsRepository.UnitOfWork.CommitAsync();
             return result;
