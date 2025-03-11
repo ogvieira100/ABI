@@ -20,6 +20,8 @@ namespace DeveloperEvaluation.CartsApi.AutoMapper
         {
             //
             CreateMap<CreateCartsRequest, DeleteProductsCommand>();
+            CreateMap<CreateCartsRequest, CreateCartsCommand>();
+            CreateMap<CreateCartsCommand,Carts >();
             CreateMap<DeleteProductsIntegrationEvent, DeleteProductsCommand>();
             //
 
@@ -37,6 +39,11 @@ namespace DeveloperEvaluation.CartsApi.AutoMapper
             CreateMap<DeleteProductsCommand, Carts>();
             CreateMap<CreateCartsItensCommand, CartsItens>();
             CreateMap<Carts, DeleteProductsResult>();
+            CreateMap<CreateCartsResult, Carts>();
+            CreateMap<Carts, CreateCartsResult>();
+            CreateMap<CreateCartsResult, CreateCartsResponse>();
+            CreateMap<CreateCartsItensResult, CreateCardItensDto >();
+            //CreateCartsResponse
             CreateMap<DeleteProductsResult, CreateCartsResponse>();
             CreateMap<CartsItens, CreateCartsItensResult>();
             CreateMap<InsertProductsIntegrationEvent, CreateProductsCommand>();
