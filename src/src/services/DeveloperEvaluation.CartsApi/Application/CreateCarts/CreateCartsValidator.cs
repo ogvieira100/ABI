@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
 {
-    public class DeleteProductsValidator: AbstractValidator<DeleteProductsCommand>
+    public class CreateCartsValidator : AbstractValidator<CreateCartsCommand>
     {
-        public DeleteProductsValidator()
+        public CreateCartsValidator()
         {
             RuleFor(x => x.UserIdInsert)
                     .NotEmpty()

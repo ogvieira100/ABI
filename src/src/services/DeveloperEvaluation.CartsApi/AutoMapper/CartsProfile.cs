@@ -2,6 +2,7 @@
 using DeveloperEvaluation.CartsApi.Application.CreateCarts;
 using DeveloperEvaluation.CartsApi.Application.CreateCartsItens;
 using DeveloperEvaluation.CartsApi.Application.CreateProducts;
+using DeveloperEvaluation.CartsApi.Application.DeleteProducts;
 using DeveloperEvaluation.CartsApi.Application.UpdateCartsItens;
 using DeveloperEvaluation.CartsApi.Application.UpdateProducts;
 using DeveloperEvaluation.CartsApi.Dto;
