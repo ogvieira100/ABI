@@ -84,3 +84,69 @@ This section includes links to the detailed documentation for the different API 
 This section describes the overall structure and organization of the project files and directories. 
 
 See [Project Structure](/.doc/project-structure.md)
+
+# Developer Evaluation Project Tecnical Test:.
+
+## Introduction
+
+Hello, friends! 
+
+I am pleased to present the **Developer Evaluation Project** technical test. The goal of this project was to develop an application with multiple APIs, messaging integration, and a frontend for data interaction.
+
+## How to Run the Project
+
+To test the application, follow these steps:
+
+1. Ensure you have **Docker Desktop** installed on your machine or are in an environment suitable for running containers.
+2. Navigate to the `/src/docker` directory.
+3. Run the following command:
+   ```sh
+   docker-compose -f docker-compose-local.yml up -d
+   ```
+
+## Application Structure
+
+The project includes four main APIs:
+
+- **Auth** (Authentication)
+- **Carts** (Shopping Carts)
+- **Products** (Products)
+- **Users** (Users)
+
+Currently, the **Carts** and **Products** APIs are fully functional, following the required test standards. Additionally, the **Products** API includes unit tests and a **messaging broker**, enabling asynchronous communication between the **Products** and **Carts** services, ensuring API decoupling.
+
+### Key Features
+
+- **Carts API**: Allows the creation of shopping carts.
+- **Products API**: Manages products, including **insert, update, and delete** operations.
+- **Messaging**: Events are triggered between **Products** and **Carts** to maintain data consistency.
+- **Angular Frontend**: Displays a product list and triggers update events when performing **Insert, Update, and Delete** operations.
+
+## Accessing the Interfaces
+
+After starting the containers, use the links below to access the application interfaces:
+
+- **Angular Frontend**: [http://localhost:8081/index.html](http://localhost:8081/index.html)
+- **Swagger - Products API**: [http://localhost:5162/swagger](http://localhost:5162/swagger)
+- **Swagger - Carts API**: [http://localhost:5077/swagger](http://localhost:5077/swagger)
+- **PostgreSQL Database Management**: [http://localhost:5050](http://localhost:5050)
+
+## Credentials Configuration
+
+Authentication details for the containers are available in the file:
+
+```
+/src/docker/docker-compose-local.yml
+```
+
+Additionally, further credentials can be found within the application settings.
+
+## Final Notes
+
+Due to the application's complexity and the proposed scope, it was not possible to complete 100% of the final goal. However, I believe the material developed provides a satisfactory basis for evaluation.
+
+Thank you for the opportunity, and I look forward to your feedback on the test.
+
+Best regards!
+
+
