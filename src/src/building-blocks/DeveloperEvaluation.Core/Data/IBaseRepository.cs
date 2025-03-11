@@ -21,6 +21,8 @@ namespace DeveloperEvaluation.Core.Data
 
         void Remove(TEntity customer);
 
+        void RemoveRange(IEnumerable<TEntity> customer);
+
         void Remove<T>(T customer) where T : BaseEntity;
 
         IUnitOfWork UnitOfWork { get; }

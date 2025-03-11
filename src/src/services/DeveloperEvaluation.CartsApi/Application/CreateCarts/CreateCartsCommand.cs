@@ -3,13 +3,13 @@ using MediatR;
 
 namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
 {
-    public class CreateCartsCommand : IRequest<CreateCartsResult>
+    public class DeleteProductsCommand : IRequest<DeleteProductsResult>
     {
         public Guid UserIdInsert { get; set; }
         public IEnumerable<CreateCartsItensCommand> CreateCardItens { get; set; }
 
         
-        public CreateCartsCommand()
+        public DeleteProductsCommand()
         {
             CreateCardItens = new List<CreateCartsItensCommand>();
         }

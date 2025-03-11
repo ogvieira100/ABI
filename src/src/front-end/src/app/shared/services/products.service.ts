@@ -9,6 +9,7 @@ import { GetPaginatedProductsRequest } from '../models/request/get-paginated-pro
 import { Commons } from '../util/Commons';
 import { ApiResponse, ApiResponseSend } from '../models/response/api-response';
 import { CreateProductRequest } from '../models/request/create-product-request';
+import { UpdateProductRequest } from '../models/request/update-product-request';
 
 @Injectable({
   providedIn: 'root'
@@ -40,16 +41,22 @@ export class ProductsService extends BaseService {
              })
          )  
     }
-    upadteProducts(createProductRequest:CreateProductRequest):Observable<ApiResponseSend<Product>>{  
+    upadteProducts(createProductRequest:UpdateProductRequest):Observable<ApiResponseSend<Product>>{  
 
       return this.http
-         .post<ApiResponseSend<Product>>(this.getUrlProduct(), createProductRequest)
+         .put<ApiResponseSend<Product>>(this.getUrlProduct(), createProductRequest)
          .pipe(
              catchError((error) => {
                  this.treateErrorHttp(error);
                  return throwError(() => error);
              })
          )  
+    }
+
+    async upadteProductsAsync(updateProductRequest:UpdateProductRequest):Promise<ApiResponseSend<Product>>{
+
+      const ret = await lastValueFrom(this.upadteProducts(updateProductRequest))
+       return ret
     }
 
     getProducts(getPaginatedProductsRequest:GetPaginatedProductsRequest):Observable<ApiResponse<Product>>{
@@ -74,4 +81,22 @@ export class ProductsService extends BaseService {
         const ret = await lastValueFrom(this.getProducts(getPaginatedProductsRequest))
          return ret
    }
+
+getProduct(id:string):Observable<ApiResponseSend<Product>>{
+    let url  = `${this.getUrlProduct()}/${id}`;
+    return this.http
+       .get<ApiResponseSend<Product>>(url)
+       .pipe(
+           catchError((error) => {
+               this.treateErrorHttp(error);
+               return throwError(() => error);
+           })
+       )
+ }
+
+ async getProductAsync(id:string):Promise<ApiResponseSend<Product>>{
+
+      const ret = await lastValueFrom(this.getProduct(id))
+       return ret
+ }
 }

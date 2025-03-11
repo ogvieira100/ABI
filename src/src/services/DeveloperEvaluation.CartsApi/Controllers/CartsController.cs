@@ -39,7 +39,7 @@ namespace DeveloperEvaluation.CartsApi.Controllers
             if (!validationResult.IsValid)
                 return BadRequest(validationResult.Errors);
 
-            var command = _mapper.Map<CreateCartsCommand>(request);
+            var command = _mapper.Map<DeleteProductsCommand>(request);
             var response = await _mediator.Send(command, cancellationToken);
 
             return Created(string.Empty, new ApiResponseWithData<CreateCartsResponse>

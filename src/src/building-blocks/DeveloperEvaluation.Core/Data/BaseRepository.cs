@@ -45,5 +45,6 @@ namespace DeveloperEvaluation.Core.Data
         public void Remove<T>(T customer) where T : BaseEntity
              => _applicationContext.Set<T>().Remove(customer);
 
+        public void RemoveRange(IEnumerable<TEntity> customer) => DbSet.RemoveRange(customer);
     }
 }

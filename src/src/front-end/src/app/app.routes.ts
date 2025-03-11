@@ -17,6 +17,10 @@ export const routes: Routes = [
     {
         path: 'novo-produto',   
         loadComponent:()=> import('./products/new/new.component').then(m => m.NewComponent)     
+    }, 
+    {
+        path: 'editar-produto/:id',   
+        loadComponent:()=> import('./products/update/update.component').then(m => m.UpdateComponent)     
     },    
     {
         path: 'login',   

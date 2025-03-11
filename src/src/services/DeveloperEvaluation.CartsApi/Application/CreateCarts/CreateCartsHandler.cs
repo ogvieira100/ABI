@@ -6,7 +6,7 @@ using MediatR;
 
 namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
 {
-    public class CreateCartsHandler : IRequestHandler<CreateCartsCommand, CreateCartsResult>
+    public class DeleteProductsHandler : IRequestHandler<DeleteProductsCommand, DeleteProductsResult>
     {
         readonly IBaseRepository<Carts>  _cartsRepository;
         readonly IBaseRepository<Products> _productsRepository;
@@ -16,14 +16,14 @@ namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
         const int minDiscountVintePorcent = 10;
         const int maxDiscountVintePorcent = 20;
         const int maxItens = 20;
-        public CreateCartsHandler(IBaseRepository<Products> productsRepository, IBaseRepository<Carts> cartsRepository, IMapper mapper)
+        public DeleteProductsHandler(IBaseRepository<Products> productsRepository, IBaseRepository<Carts> cartsRepository, IMapper mapper)
         {
             _cartsRepository = cartsRepository;
             _mapper = mapper;
             _productsRepository = productsRepository;
         }
 
-        public async Task<CreateCartsResult> Handle(CreateCartsCommand command, CancellationToken cancellationToken)
+        public async Task<DeleteProductsResult> Handle(DeleteProductsCommand command, CancellationToken cancellationToken)
         {
             var validator = new CreateCartsValidator();
             var validationResult = await validator.ValidateAsync(command, cancellationToken);
@@ -72,7 +72,7 @@ namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
 
             await _cartsRepository.AddAsync(carAdd, cancellationToken);
             await _cartsRepository.UnitOfWork.CommitAsync();
-            return _mapper.Map<CreateCartsResult>(carAdd);
+            return _mapper.Map<DeleteProductsResult>(carAdd);
         }
        
     }

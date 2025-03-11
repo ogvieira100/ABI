@@ -32,8 +32,4 @@
     <ProjectReference Include="..\..\building-blocks\DeveloperEvaluation.MessageBus\DeveloperEvaluation.MessageBus.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\DeleteProducts\" />
-  </ItemGroup>
-
 </Project>

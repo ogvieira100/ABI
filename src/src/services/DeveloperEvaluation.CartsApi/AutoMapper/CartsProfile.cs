@@ -18,7 +18,7 @@ namespace DeveloperEvaluation.CartsApi.AutoMapper
         public CartsProfile()
         {
             //
-            CreateMap<CreateCartsRequest, CreateCartsCommand>();
+            CreateMap<CreateCartsRequest, DeleteProductsCommand>();
 
             //.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Descricao))
             CreateMap<Products, UpdateCartsItensUnitPriceCommand>()
@@ -29,12 +29,12 @@ namespace DeveloperEvaluation.CartsApi.AutoMapper
             
             CreateMap<Products, UpdateProductsResult>();
             CreateMap<CreateCardItensDto, CreateCartsItensCommand>();
-            CreateMap<CreateCartsCommand , CreateCartsRequest>();
+            CreateMap<DeleteProductsCommand , CreateCartsRequest>();
             CreateMap<CreateCartsItensCommand, CreateCardItensDto>();
-            CreateMap<CreateCartsCommand, Carts>();
+            CreateMap<DeleteProductsCommand, Carts>();
             CreateMap<CreateCartsItensCommand, CartsItens>();
-            CreateMap<Carts, CreateCartsResult>();
-            CreateMap<CreateCartsResult, CreateCartsResponse>();
+            CreateMap<Carts, DeleteProductsResult>();
+            CreateMap<DeleteProductsResult, CreateCartsResponse>();
             CreateMap<CartsItens, CreateCartsItensResult>();
             CreateMap<InsertProductsIntegrationEvent, CreateProductsCommand>();
             CreateMap<UpdateProductsIntegrationEvent, UpdateProductsCommand>()

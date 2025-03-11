@@ -2,14 +2,14 @@
 
 namespace DeveloperEvaluation.CartsApi.Application.CreateCarts
 {
-    public class CreateCartsResult
+    public class DeleteProductsResult
     {
 
         public Guid Id { get; set; }
 
         public List<CreateCartsItensResult> CreateCardItens { get; set; }
 
-        public CreateCartsResult()
+        public DeleteProductsResult()
         {
             CreateCardItens = new List<CreateCartsItensResult>();
         }
