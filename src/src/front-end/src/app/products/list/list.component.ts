@@ -15,16 +15,18 @@ import { Router } from '@angular/router';
   styleUrl: './list.component.css'
 })
 export class ListComponent implements OnInit {
+
+  getPaginatedProductsRequest:GetPaginatedProductsRequest = new GetPaginatedProductsRequest();  
     editarProduto(_t16: Product) {
 
       this.router.navigate(['/editar-produto/'+_t16?.id]);  
 
     }
-    excluirProduto(_t16: Product) {
+    async excluirProduto(_t16: Product) {
           if (confirm(`Atenção! Deseja realmente excluir o produto  ${_t16?.title} `))
           {
-
-
+                await this.productsService.deleteProductAsync(_t16.id);
+                await this.searchGrid(this.getPaginatedProductsRequest);
           }
     }
 
@@ -39,6 +41,7 @@ export class ListComponent implements OnInit {
   }
 
   async searchGrid(getPaginatedProductsRequest:GetPaginatedProductsRequest){
+      this.getPaginatedProductsRequest = getPaginatedProductsRequest;
       this.paginatedResponse = await this.productsService.getProductsAsync(getPaginatedProductsRequest)
        
     }

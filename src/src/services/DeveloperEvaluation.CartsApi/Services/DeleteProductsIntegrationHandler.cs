@@ -1,4 +1,6 @@
 ﻿
+using AutoMapper;
+using DeveloperEvaluation.CartsApi.Application.DeleteProducts;
 using DeveloperEvaluation.MessageBus.Interface;
 using DeveloperEvaluation.MessageBus.Models;
 using DeveloperEvaluation.MessageBus.Models.Integration;
@@ -43,12 +45,10 @@ namespace DeveloperEvaluation.CartsApi.Services
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var iMediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    //var ret = await serviceArchive.SendCommand<DeleteCustomerCommand, object>(
-                    //new DeleteCustomerCommand
-                    //{
-                    //    Id = request.Id,
-                    //    UserDeleteId = request.UserDeleteId,
-                    //});
+                    var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+                    var command = mapper.Map<DeleteProductsCommand>(request);
+                    var ret =  await iMediator.Send(command);
+                    
                 }
             }
             catch (Exception ex) { }

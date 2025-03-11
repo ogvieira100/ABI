@@ -20,6 +20,8 @@ namespace DeveloperEvaluation.CartsApi.AutoMapper
         {
             //
             CreateMap<CreateCartsRequest, DeleteProductsCommand>();
+            CreateMap<DeleteProductsIntegrationEvent, DeleteProductsCommand>();
+            //
 
             //.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Descricao))
             CreateMap<Products, UpdateCartsItensUnitPriceCommand>()

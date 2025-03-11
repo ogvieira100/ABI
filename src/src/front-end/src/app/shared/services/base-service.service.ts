@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { ValiditionError } from '../models/utils/validition-error';
 
 @Injectable({
   providedIn: 'root'
@@ -26,14 +27,31 @@ export abstract class BaseService {
 }
 
   protected treateErrorHttp(returnHttp: any) {
+
+  
+    
     if (returnHttp.status)
     {
+        if (returnHttp.status == 400)
+        {
+          
+          var err = returnHttp.error as ValiditionError[];
+          const messages = err.map((ret) => { return ret.errorMessage }); 
+          alert(messages.join('\n')); 
+          
+          return
+            
+        }else 
         /*unauthorized*/
         if (returnHttp.status == 401)
         {
 
            
             return
+
+        }else if (returnHttp.status == 400)
+        {
+         
 
         }
     }

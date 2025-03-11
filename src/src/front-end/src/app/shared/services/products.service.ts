@@ -99,4 +99,22 @@ getProduct(id:string):Observable<ApiResponseSend<Product>>{
       const ret = await lastValueFrom(this.getProduct(id))
        return ret
  }
+
+ deleteProduct(id:string):Observable<ApiResponseSend<Product>>{
+    let url  = `${this.getUrlProduct()}/${id}`;
+    return this.http
+       .delete<ApiResponseSend<Product>>(url)
+       .pipe(
+           catchError((error) => {
+               this.treateErrorHttp(error);
+               return throwError(() => error);
+           })
+       )
+ }
+
+ async deleteProductAsync(id:string):Promise<ApiResponseSend<Product>>{
+
+      const ret = await lastValueFrom(this.deleteProduct(id))
+       return ret
+ }
 }
